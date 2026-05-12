@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    [data-create-form-error-note] {
+      color: red;
+      margin-bottom: 0.25rem;
+    }
+
+    [data-create-form-hint] {
+      color: gray;
+      font-size: 16px;
+       margin-top: 0.25rem;
+    }
+    form {
+      max-width: 620px;
+      margin: 50px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 18px;
+    }
+    button {
+       padding: 4px 8px;
+       border-radius: 4px;
+       font-size: 23px;
+       border: none;
+    }
+
+    button[type="submit"] {
+      background-color: dodgerblue;
+      color: white;
+    }
+
+     button[type="reset"] {
+      background-color: rgb(196, 196, 196);
+     }
+  </style>
+</head>
+
+<body>
+  <form id="contact-form">
+    <label>
+      Email
+      <input name="email" type="email" />
+    </label>
+
+    <label>
+      Message
+      <textarea name="message"></textarea>
+    </label>
+
+    <button type="submit">Send</button>
+    <button type="reset">Reset</button>
+  </form>
+  
+  <script type="module">
+    import createForm from "../index.js"
+
+    const contactForm = createForm({
+      element: document.querySelector("#contact-form"),
+      formFields: [
+        {
+          name: "email",
+          initialValue: "",
+          hint: "Use an email address you check often.",
+          validate: ({ value, isEmpty }) => {
+            if (isEmpty(value)) return { message: "Email is required." };
+            if (!String(value).includes("@")) {
+              return { message: "Enter a valid email address." };
+            }
+
+            return null;
+          },
+        },
+        {
+          name: "message",
+          initialValue: "",
+          validate: ({ trimmedValue }) => {
+            if (!trimmedValue) return { message: "Message is required." };
+            if (trimmedValue.length < 10 ) return { message: "Minimum characters is 10." };
+            return null;
+          },
+        },
+      ],
+    });
+
+
+    contactForm.runWorkflow();
+
+    contactForm.on("submit", () => {
+      const invalidFields = contactForm.validateAll();
+
+      if (invalidFields) {
+        contactForm.showErrors();
+        return;
+      }
+
+      const payload = contactForm.getTrimmedFormValues();
+      console.log(payload);
+    });
+
+    contactForm.on("reset", () => {
+      contactForm.reset();
+    });
+   
+  </script>
+</body>
+
+</html>
