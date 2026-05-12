@@ -7,3 +7,7 @@ node_modules/
 
 # system files
 *:Zone.Identifier
+
+# local sandboxes
+sandbox/
+**/sandbox/

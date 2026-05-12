@@ -7,6 +7,7 @@ This workflow is framework-agnostic and works directly with DOM form elements.
 ## Table of Contents
 
 - [Basic Usage](#basic-usage)
+- [Demo](#demo)
 - [Field Config](#field-config)
 - [Validation](#validation)
 - [Controller API](#controller-api)
@@ -56,6 +57,14 @@ contactForm.on("submit", () => {
 contactForm.on("reset", () => {
   contactForm.reset();
 });
+```
+
+## Demo
+
+A browser demo is available at:
+
+```text
+workflows/form/v1/demo/index.html
 ```
 
 ## Field Config

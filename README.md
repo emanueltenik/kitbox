@@ -20,6 +20,7 @@ createForm
 
 - [Why](#why)
 - [Installation](#installation)
+- [Demo](#demo)
 - [Quick Example](#quick-example)
 - [Available Workflows](#available-workflows)
 - [Controller Pattern](#controller-pattern)
@@ -51,6 +52,14 @@ import { createForm } from "./kitbox/index.js";
 ```
 
 NPM packaging may be added later if the project grows into a stable library.
+
+## Demo
+
+A public-facing form workflow demo is available at:
+
+```text
+workflows/form/v1/demo/index.html
+```
 
 ## Quick Example
 
@@ -149,7 +158,7 @@ It can:
 See the form workflow docs:
 
 ```text
-workflows/form/v1/Readme.md
+workflows/form/v1/readme.md
 ```
 
 ## Controller Pattern
