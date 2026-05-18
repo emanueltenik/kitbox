@@ -1,29 +1,24 @@
 import Ctx from "./context.js";
 import { createEmitter } from "./create-emitter.js";
 
-export default function defineWorkflow (args, rawWorkFlowObject) {
-
-  const emitter = createEmitter(args.element, rawWorkFlowObject.name);
+export default function defineWorkflow(args, workflowObject) {
+  const emitter = createEmitter(args.element, workflowObject.name);
 
   const normalizedWorkFlow = {
-    ...rawWorkFlowObject, 
+    ...workflowObject,
     ...args,
     emitter: emitter,
-    workflowElement: args.element
+    workflowElement: args.element,
   };
 
-  delete normalizedWorkFlow.element;
+  const ctx = new Ctx(normalizedWorkFlow);
 
-  const ctx = new Ctx (normalizedWorkFlow);
+  const clientCtx = { // public facing API of the workflow 
+    workflow: ctx.get().name,
+    element: ctx.get().element,
+    on: (eventAlias, callback) => ctx.get().emitter.on(eventAlias, callback),
+    off: (eventAlias, callback) => ctx.get().emitter.off(eventAlias, callback),
+  }
 
-   const clientWorkflow =  {
-    workflow: normalizedWorkFlow.name,
-    element: args.element,
-    ...ctx.get().actions,
-     state: () => ctx.get().state,
-     on: (eventAlias, callback) => emitter.on(eventAlias, callback),
-     off: (eventAlias, callback) => emitter.off(eventAlias, callback)
-  } 
-
-  return { clientWorkflow, ctx };
+  return { ctx, clientCtx};
 }

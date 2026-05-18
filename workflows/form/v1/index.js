@@ -7,7 +7,7 @@ import { showErrors, hideErrors } from "./workflow/effects/error-notes.js";
 
 
 export default function createForm(args) {
-  const { clientWorkflow, ctx } = defineWorkflow(args, {
+  const { ctx, clientCtx }  = defineWorkflow(args, {
     name: "create-form",
     state: {
       status: "idle",
@@ -51,5 +51,9 @@ export default function createForm(args) {
     },
   });
 
-  return clientWorkflow;
+  return { // public facing API of the workflow
+    ...clientCtx,
+    ...ctx.get().actions,
+    state: () => ctx.get().state,
+  } 
 }
