@@ -11,12 +11,8 @@ export default function createForm(args) {
     name: "create-form",
     state: {
       status: "idle",
-      values: {
-        formValues: {},
-      },
-      errors: {
-        invalidFields: {},
-      },
+      values: {},
+      errors: {},
       result: null,
     },
 
@@ -31,10 +27,11 @@ export default function createForm(args) {
         ),
       validateAll: () => validateAll(ctx),
 
-      getFormValues: () => ctx.get().state.values.formValues,
+      getFormValues: () => ctx.get().state.values,
       getTrimmedFormValues: () => {
-        const formValues = ctx.get().state.values.formValues;
+        const formValues = ctx.get().state.values;
         const trimedFormValues = {};
+
         Object.keys(formValues).forEach(
           (field) =>
             (trimedFormValues[field] = String(formValues[field]).trim()),
@@ -43,9 +40,9 @@ export default function createForm(args) {
         return trimedFormValues;
       },
 
-      getFormValue: (field) => ctx.get().state.values.formValues[field],
+      getFormValue: (field) => ctx.get().state.values[field],
       getTrimmedFormValue: (field) => {
-        const value = ctx.get().state.values.formValues[field];
+        const value = ctx.get().state.values[field];
         return String(value).trim() || value;
       },
 

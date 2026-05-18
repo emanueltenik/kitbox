@@ -11,7 +11,7 @@ export default function setState(ctx, newState) {
   });
 
   //Update DOM
-  updateFormValues(workflowElement, newState.values.formValues, formFields);
+  updateFormValues(workflowElement, newState.values, formFields);
 
   return newState;
 }

@@ -18,11 +18,8 @@ export default function (ctx, reset) {
 
   setState(ctx, {
     status: "idle",
-    values: { ...state.values, formValues: initialFormValues },
-    errors: {
-      ...state.errors,
-      invalidFields: validateAll(ctx),
-    },
+    values: { ...initialFormValues },
+    errors: { ...validateAll(ctx) },
     result: null,
   });
 

@@ -39,22 +39,19 @@ export default function handleOnChange(e, ctx) {
 
   
   // update state
-  const newFormValues = {
-    ...state.values.formValues,
+  const newValues = {
+    ...state.values,
     ...{ [fieldName]: value },
   };
   
-  const newInvalidFieldsError = error
+  const newErrors = error
     ? {
-        ...state.errors.invalidFields,
+        ...state.errors,
         [fieldName]: error,
       }
-    : state.errors.invalidFields;
+    : state.errors;
 
-  if (!error && state.errors.invalidFields) delete newInvalidFieldsError[fieldName];
-
-  const newValues = { ...state.values, formValues: newFormValues };
-  const newErrors = { ...state.errors, invalidFields: newInvalidFieldsError };
+  if (!error && state.errors) delete newErrors[fieldName];
 
   const newState = { ...state, values: newValues, errors: newErrors };
 
