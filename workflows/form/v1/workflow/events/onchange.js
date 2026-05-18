@@ -57,12 +57,10 @@ export default function handleOnChange(e, ctx) {
 
   setState(ctx, newState);
 
-  // Expose the change event
-
-  let changed = null;
-  if (error) changed = { name: fieldName, value: value, error: error };
-
+  // Expose the change event with field name, value, and error (if any)
   emitter.emit("change", {
-    changed,
+    name: fieldName,
+    value: value,
+    error: error ? error : null,
   });
 }
