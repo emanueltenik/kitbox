@@ -6,11 +6,11 @@ const BASE_MESSAGE =
   "Expected an object with name, state, and actions properties.";
 
 export default function validateWorkflowObject(workflow) {
-  if (workflow == null || type.isEmpty(workflow)) {
+  if (type.isNil(workflow)) {
     return `No workflow provided to defineWorkflow(). ${BASE_MESSAGE}`;
   }
 
-  if (!type.isObject(workflow)) {
+  if (!type.isPlainObject(workflow)) {
     return `Invalid workflow provided to defineWorkflow(). ${BASE_MESSAGE}`;
   }
 

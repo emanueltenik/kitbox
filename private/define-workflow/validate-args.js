@@ -4,11 +4,11 @@ const BASE_MESSAGE =
   "Expected an object with an 'element' property (a DOM element associated with the workflow).";
 
 export default function validateArgs(args) {
-  if (args == null) {
+  if (type.isNil(args)) {
     return `No arguments provided to defineWorkflow(). ${BASE_MESSAGE}`;
   }
 
-  if (!type.isObject(args)) {
+  if (!type.isPlainObject(args)) {
     return `Invalid arguments provided to defineWorkflow(). ${BASE_MESSAGE}`;
   }
 

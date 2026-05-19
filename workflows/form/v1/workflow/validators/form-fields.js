@@ -8,7 +8,7 @@ const FORM_FIELDS_SCHEMA =
 export default function validateFormFields(ctx) {
     const { workflowElement, formFields } = ctx.get();
 
-    if (formFields == null) {
+    if (type.isNil(formFields)) {
         return `formFields was not passed to createForm(). ${FORM_FIELDS_SCHEMA}`;
     }
 
@@ -19,11 +19,11 @@ export default function validateFormFields(ctx) {
     for (const [index, field] of formFields.entries()) {
         const itemNumber = index + 1;
 
-        if (!type.isObject(field)) {
+        if (!type.isPlainObject(field)) {
             return `Expected object at formFields item ${itemNumber}, received ${typeof field}. ${FORM_FIELDS_SCHEMA}`;
         }
 
-        if (!field.name || typeof field.name !== "string") {
+        if (!field.name || !type.isString(field.name)) {
             return `Missing or invalid 'name' property at formFields item ${itemNumber}. ${FORM_FIELDS_SCHEMA}`;
         }
 
