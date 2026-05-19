@@ -3,11 +3,11 @@ import runWorkflowSetup from "./workflow/index.js";
 import handleReset from "./workflow/events/onreset.js";
 import validateFormValues from "./workflow/validators/form-values.js";
 import validateFormValue from "./workflow/validators/form-value.js";
+import validateFormFields from "./workflow/validators/form-fields.js";
 import { showErrors, hideErrors } from "./workflow/effects/error-notes.js";
 
-
 export default function createForm(args) {
-  const { ctx, clientCtx }  = defineWorkflow(args, {
+  const { ctx, clientCtx } = defineWorkflow(args, {
     name: "create-form",
     state: {
       status: "idle",
@@ -47,13 +47,17 @@ export default function createForm(args) {
       },
 
       showErrors: () => showErrors(ctx),
-      hideErrors: () => hideErrors(ctx)
+      hideErrors: () => hideErrors(ctx),
     },
   });
 
-  return { // public facing API of the workflow
+  const invalidFormFieldsSchema = validateFormFields(ctx);
+  if (invalidFormFieldsSchema) throw new Error(invalidFormFieldsSchema);
+
+  return {
+    // public facing API of the workflow
     ...clientCtx,
     ...ctx.get().actions,
     state: () => ctx.get().state,
-  } 
+  };
 }
