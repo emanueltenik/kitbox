@@ -1,8 +1,8 @@
 import defineWorkflow from "../../../private/define-workflow/index.js";
 import runWorkflowSetup from "./workflow/index.js";
 import handleReset from "./workflow/events/onreset.js";
-import validateAll from "./workflow/validate-all.js";
-import validate from "./workflow/validate.js";
+import validateFormValues from "./workflow/validators/form-values.js";
+import validateFormValue from "./workflow/validators/form-value.js";
 import { showErrors, hideErrors } from "./workflow/effects/error-notes.js";
 
 
@@ -21,11 +21,11 @@ export default function createForm(args) {
       reset: () => handleReset(ctx),
 
       validate: (field) =>
-        validate(
+        validateFormValue(
           ctx.get().formFields.filter((f) => f.name === field)[0] || "",
           ctx,
         ),
-      validateAll: () => validateAll(ctx),
+      validateAll: () => validateFormValues(ctx),
 
       getFormValues: () => ctx.get().state.values,
       getTrimmedFormValues: () => {

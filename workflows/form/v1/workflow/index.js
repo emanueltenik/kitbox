@@ -1,6 +1,6 @@
 import setState from "./reducers/set-state.js";
 import handleOnChange from "./events/onchange.js";
-import validateAll from "./validate-all.js";
+import validateFormValues from "./validators/form-values.js";
 import handleHintsOnFocus from "./events/onfocus.js";
 import handleHintsOnBlur from "./events/onblur.js";
 
@@ -19,7 +19,7 @@ export default function (ctx, reset) {
   setState(ctx, {
     status: "idle",
     values: { ...initialFormValues },
-    errors: { ...validateAll(ctx) },
+    errors: { ...validateFormValues(ctx) },
     result: null,
   });
 

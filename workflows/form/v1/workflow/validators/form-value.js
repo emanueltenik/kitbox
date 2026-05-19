@@ -1,6 +1,6 @@
-import getFormDataObject from "../helpers/get-form-data-object.js";
+import getFormDataObject from "../../helpers/get-form-data-object.js";
 
-export default function validate(field, ctx) {
+export default function validateFormValue(field, ctx) {
   const ctxObject = ctx.get();
   const { workflowElement } = ctxObject;
   const formValues = getFormDataObject(workflowElement);

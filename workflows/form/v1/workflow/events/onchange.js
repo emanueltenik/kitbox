@@ -1,6 +1,6 @@
 import getElementValue from "../../helpers/get-element-value.js";
 import setState from "../reducers/set-state.js";
-import validate from "../validate.js";
+import validateFormValue from "../validators/form-value.js";
 import { removeHint, setHint } from "../effects/hints.js";
 import { removeErrorNote } from "../effects/error-notes.js";
 
@@ -28,7 +28,7 @@ export default function handleOnChange(e, ctx) {
   // validate input
   let error = null;
 
-  if (field.validate) error = validate(
+  if (field.validate) error = validateFormValue(
         formFields.filter((f) => f.name === fieldName)[0],
         ctx,
   );

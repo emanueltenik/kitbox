@@ -1,6 +1,6 @@
-import validate from "./validate.js";
+import validateFormValue from "./form-value.js";
 
-export default function validateAll(ctx) {
+export default function validateFormValues(ctx) {
   const ctxObject = ctx.get();
   const { formFields } = ctxObject;
 
@@ -9,7 +9,7 @@ export default function validateAll(ctx) {
   formFields.forEach((field) => {
     if (!field.validate) return;
 
-    const error = validate(field, ctx);
+    const error = validateFormValue(field, ctx);
     if (error) invalidFields[field.name] = invalidFields[field.name] = error;
   });
 

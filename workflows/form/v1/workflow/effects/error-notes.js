@@ -1,5 +1,5 @@
 const errorNoteElementAttributeName = "data-create-form-error-note";
-import validateAll from "../validate-all.js";
+import validateFormValues from "../validators/form-values.js";
 
 export function showErrors (ctx)  {
     const invalidFieldElements = getInvalidFieldElements(ctx);
@@ -78,7 +78,7 @@ export function getInvalidFieldElements (ctx) {
   const ctxObject = ctx.get();
   const { workflowElement } = ctxObject;
 
-   const invalidFields = validateAll(ctx);
+   const invalidFields = validateFormValues(ctx);
   
     if (!invalidFields) return null;
   

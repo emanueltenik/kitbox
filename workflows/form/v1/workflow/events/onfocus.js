@@ -1,4 +1,4 @@
-import validate from "../validate.js";
+import validateFormValue from "../validators/form-value.js";
 import { setHint } from "../effects/hints.js";
 
 export default function handleHintsOnFocus(ctx) {
@@ -11,7 +11,7 @@ export default function handleHintsOnFocus(ctx) {
 
     fieldElement.addEventListener("focus", () => {
       if (field.validate) {
-        const error = validate(field, ctx);
+        const error = validateFormValue(field, ctx);
         if (error) setHint(field, ctx);
       } else {
         setHint(field, ctx);
