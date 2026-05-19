@@ -1,20 +1,26 @@
-import * as type  from "../helpers/index.js";
+import * as type from "../helpers/index.js";
+
+const BASE_MESSAGE =
+  "Expected an object with an 'element' property (a DOM element associated with the workflow).";
 
 export default function validateArgs(args) {
-  const messageForExpectedArgs =
-    "Expected an object:{} with atleast an element property (the DOM element associated with the workflow";
+  if (args == null) {
+    return `No arguments provided to defineWorkflow(). ${BASE_MESSAGE}`;
+  }
 
-  if (!args || type.isEmpty(args))
-    return `No arguments provided to defineWorkflow(). ${messageForExpectedArgs}.`;
+  if (!type.isObject(args)) {
+    return `Invalid arguments provided to defineWorkflow(). ${BASE_MESSAGE}`;
+  }
 
-  if (!type.isObject(args))
-    return `Invalid arguments provided to defineWorkflow(). ${messageForExpectedArgs}.`;
+  if (!Object.hasOwn(args, "element")) {
+    return `Missing 'element' property in arguments to defineWorkflow(). ${BASE_MESSAGE}`;
+  }
 
-  if (!args.hasOwnProperty("element"))
-    return `No element prop provided in arguments to defineWorkflow(). ${messageForExpectedArgs}.`;
+  const { element } = args;
 
-  if (!type.isHtmlElement(args.element))
-    return `The element property provided in arguments to defineWorkflow() is not a valid DOM element. ${messageForExpectedArgs}.`;
+  if (!type.isHtmlElement(element)) {
+    return `The 'element' property provided to defineWorkflow() is not a valid DOM element. ${BASE_MESSAGE}`;
+  }
 
   return null;
 }

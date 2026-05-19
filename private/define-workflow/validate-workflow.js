@@ -1,20 +1,24 @@
-import * as type  from "../helpers/index.js";
+import * as type from "../helpers/index.js";
+
+const EXPECTED_PROPS = ["name", "state", "actions"];
+
+const BASE_MESSAGE =
+  "Expected an object with name, state, and actions properties.";
 
 export default function validateWorkflowObject(workflow) {
-  const messageForExpectedWorklow =
-    "Expected an object:{} with name, state and actions properties.";
-  const expectedProps = ["name", "state", "actions"];
+  if (workflow == null || type.isEmpty(workflow)) {
+    return `No workflow provided to defineWorkflow(). ${BASE_MESSAGE}`;
+  }
 
-  if (!workflow || type.isEmpty(workflow))
-    return `No workflow provided to defineWorkflow(). ${messageForExpectedWorklow}.`;
+  if (!type.isObject(workflow)) {
+    return `Invalid workflow provided to defineWorkflow(). ${BASE_MESSAGE}`;
+  }
 
-  if (!type.isObject(workflow))
-    return `Invalid workflow provided to defineWorkflow(). ${messageForExpectedWorklow}.`;
-
-  expectedProps.forEach((prop) => {
-    if (!workflow.hasOwnProperty(prop))
-      return `No ${prop} property provided in workflow object to defineWorkflow(). ${messageForExpectedWorklow}.`;
-  });
+  for (const prop of EXPECTED_PROPS) {
+    if (!Object.hasOwn(workflow, prop)) {
+      return `Missing '${prop}' property in workflow object passed to defineWorkflow(). ${BASE_MESSAGE}`;
+    }
+  }
 
   return null;
 }
