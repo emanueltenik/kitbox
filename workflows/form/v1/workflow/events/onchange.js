@@ -22,28 +22,28 @@ export default function handleOnChange(e, ctx) {
   if (element.type === "radio" && value === null) return;
 
   // show hint
-  if (field.hint && !field.validate) setHint(field, ctx);
-
+  if (Object.hasOwn(field, "hint") && !Object.hasOwn(field, "validate"))
+    setHint(field, ctx);
 
   // validate input
   let error = null;
 
-  if (field.validate) error = validateFormValue(
-        formFields.filter((f) => f.name === fieldName)[0],
-        ctx,
-  );
+  if (Object.hasOwn(field, "validate"))
+    error = validateFormValue(
+      formFields.filter((f) => f.name === fieldName)[0],
+      ctx,
+    );
 
-   // show/hide hint based on if the input is valid
-  if (field.validate && !error)  removeHint(field, ctx);
-  if (field.validate && error)  setHint(field, ctx);
+  // show/hide hint based on if the input is valid
+  if (Object.hasOwn(field, "validate")&& !error) removeHint(field, ctx);
+  if (Object.hasOwn(field, "validate")&& error) setHint(field, ctx);
 
-  
   // update state
   const newValues = {
     ...state.values,
     ...{ [fieldName]: value },
   };
-  
+
   const newErrors = error
     ? {
         ...state.errors,
@@ -51,7 +51,7 @@ export default function handleOnChange(e, ctx) {
       }
     : state.errors;
 
-  if (!error && state.errors) delete newErrors[fieldName];
+  if (!error &&  Object.hasOwn(state, "errors")) delete newErrors[fieldName];
 
   const newState = { ...state, values: newValues, errors: newErrors };
 

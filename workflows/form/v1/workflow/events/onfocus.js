@@ -6,11 +6,11 @@ export default function handleHintsOnFocus(ctx) {
   const { workflowElement, formFields } = ctxObject;
 
   formFields.forEach((field) => {
-    const fieldElement = workflowElement.querySelector(`[name="${field.name}"]`) ?? null;
-    if (!fieldElement || !field.hint) return;
+    const fieldElement = workflowElement.querySelector(`[name="${field.name}"]`);
+    if (!fieldElement || !Object.hasOwn(field, "hint")) return;
 
     fieldElement.addEventListener("focus", () => {
-      if (field.validate) {
+      if (Object.hasOwn(field, "validate")) {
         const error = validateFormValue(field, ctx);
         if (error) setHint(field, ctx);
       } else {

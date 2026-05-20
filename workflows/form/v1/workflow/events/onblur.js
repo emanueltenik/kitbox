@@ -5,8 +5,8 @@ export default function handleHintsOnBlur(ctx) {
   const { workflowElement, formFields } = ctxObject;
 
   formFields.forEach((field) => {
-    const fieldElement = workflowElement.querySelector(`[name="${field.name}"]`) ?? null;
-    if (!fieldElement || !field.hint) return;
+    const fieldElement = workflowElement.querySelector(`[name="${field.name}"]`);
+    if (!fieldElement || !Object.hasOwn(field, "hint")) return;
 
     fieldElement.addEventListener("blur", () => removeHint(field, ctx));
   });

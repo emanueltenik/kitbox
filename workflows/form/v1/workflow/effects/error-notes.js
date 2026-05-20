@@ -30,7 +30,7 @@ export function setErrorNote(field, ctx) {
   const errorNote =
     fieldElement.parentElement.querySelector(
       `[${errorNoteElementAttributeName}]#${field.name}-error`,
-    ) ?? null;
+    );
 
   if (errorNote) return;
 
@@ -54,7 +54,7 @@ export function removeErrorNote(field, ctx) {
   const errorNote =
     fieldElement.parentElement.querySelector(
       `[${errorNoteElementAttributeName}]#${field.name}-error`,
-    ) ?? null;
+    );
 
     if (!errorNote) return
 

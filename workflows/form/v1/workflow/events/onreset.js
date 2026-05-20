@@ -8,8 +8,8 @@ export default function handleReset(ctx) {
 
   // remove injected elements
   formFields.forEach((field) => {
-    if (field.hint) removeHint(field, ctx);
-    if (field.validate) removeErrorNote(field, ctx);
+    if (Object.hasOwn(field, "hint")) removeHint(field, ctx);
+    if (Object.hasOwn(field, "validate")) removeErrorNote(field, ctx);
   });
 
   initializeWorkflow(ctx, true);
