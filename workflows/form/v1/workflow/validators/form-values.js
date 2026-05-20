@@ -7,7 +7,7 @@ export default function validateFormValues(ctx) {
   const invalidFields = {};
 
   formFields.forEach((field) => {
-    if (!field.validate) return;
+    if (!Object.hasOwn(field, "validate")) return;
 
     const error = validateFormValue(field, ctx);
     if (error) invalidFields[field.name] = invalidFields[field.name] = error;

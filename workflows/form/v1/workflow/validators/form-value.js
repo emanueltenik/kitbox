@@ -6,11 +6,11 @@ export default function validateFormValue(field, ctx) {
   const formValues = getFormDataObject(workflowElement);
   const userValue = formValues[field.name];
 
-  if (!field?.validate) return;
+  if (!Object.hasOwn(field, "validate")) return;
 
   const error = field.validate({
     value: userValue,
-    isEmpty: (value) => !String(value).trim().length > 0,
+    isEmpty: (value) => !value || String(value).trim().length === 0,
     trimmedValue: String(userValue).trim(),
   });
 
