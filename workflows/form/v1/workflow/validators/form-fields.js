@@ -23,7 +23,7 @@ export default function validateFormFields(ctx) {
             return `Expected object at formFields item ${itemNumber}, received ${typeof field}. ${FORM_FIELDS_SCHEMA}`;
         }
 
-        if (!field.name || !type.isString(field.name)) {
+        if (!Object.hasOwn(field, "name") || !type.isString(field.name)) {
             return `Missing or invalid 'name' property at formFields item ${itemNumber}. ${FORM_FIELDS_SCHEMA}`;
         }
 

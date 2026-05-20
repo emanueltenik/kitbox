@@ -113,7 +113,7 @@ const contactForm = createForm({
       name: "message",
       initialValue: "",
       validate: ({ trimmedValue }) => {
-        if (!trimmedValue) return { message: "Message is required." };
+        if (trimmedValue.length === 0) return { message: "Message is required." };
         return null;
       },
     },
